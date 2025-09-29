@@ -4,27 +4,30 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-br from-pink-50 via-yellow-50 to-purple-50 text-gray-800;
+    @apply bg-gradient-to-br from-giggle-green/20 via-jest-jellybean/20 to-chuckle-cherry/20 text-guffaw-gray;
   }
 }
 
 @layer components {
   .btn {
-    @apply px-6 py-3 rounded-full font-bold text-lg text-white transition-all duration-300 ease-in-out;
+    @apply px-6 py-3 rounded-full font-bold text-lg text-white transition-all duration-300 ease-in-out transform hover:scale-105;
   }
   .btn-primary {
-    @apply bg-gradient-to-r from-pink-500 to-yellow-500 hover:scale-105 hover:rotate-[-2deg] focus:outline-none focus:ring-4 focus:ring-pink-300;
+    @apply bg-gradient-to-r from-jest-jellybean to-pink-500 hover:rotate-[-2deg] focus:outline-none focus:ring-4 focus:ring-jest-jellybean/50;
   }
   .btn-secondary {
-    @apply bg-gradient-to-r from-purple-500 to-pink-500 hover:scale-105 hover:rotate-[2deg] focus:outline-none focus:ring-4 focus:ring-purple-300;
+    @apply bg-gradient-to-r from-giggle-green to-teal-400 hover:rotate-[2deg] focus:outline-none focus:ring-4 focus:ring-giggle-green/50;
   }
   .btn-delete {
-    @apply bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300;
+    @apply bg-chuckle-cherry hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-chuckle-cherry/50;
+  }
+  .btn-share {
+    @apply bg-gradient-to-r from-yellow-400 to-orange-500 hover:rotate-[-2deg] focus:outline-none focus:ring-4 focus:ring-yellow-400/50;
   }
   .card {
-    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-white/20;
+    @apply bg-witty-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-white/30;
   }
   .input-field {
-    @apply w-full p-4 rounded-xl bg-white/70 border-2 border-transparent focus:border-pink-400 focus:outline-none transition-all duration-300;
+    @apply w-full p-4 rounded-xl bg-witty-white/70 border-2 border-transparent focus:border-jest-jellybean focus:outline-none transition-all duration-300;
   }
 }
