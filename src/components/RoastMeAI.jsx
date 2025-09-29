@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import Timeline from './Timeline';
 import PermissionModal from './PermissionModal';
+import ShareModal from './ShareModal';
+import Loader from './Loader';
 
 const RoastMeAI = () => {
   const [name, setName] = useState('');
@@ -16,6 +18,8 @@ const RoastMeAI = () => {
   const [roasts, setRoasts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [roastToPublish, setRoastToPublish] = useState(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [roastToShare, setRoastToShare] = useState(null);
 
   useEffect(() => {
     try {
@@ -119,6 +123,16 @@ const RoastMeAI = () => {
     setRoastToPublish(null);
   };
 
+  const handleShare = (roast) => {
+    setRoastToShare(roast);
+    setIsShareModalOpen(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setIsShareModalOpen(false);
+    setRoastToShare(null);
+  };
+
   const displayRoast = roastResult?.text || streamingRoast;
 
   return (
@@ -163,12 +177,18 @@ const RoastMeAI = () => {
             </div>
           )}
           <button type="submit" className="btn btn-primary w-full" disabled={isLoading}>
-            {isLoading ? 'Roasting in progress...' : 'Generate Roast ✨'}
+            {isLoading ? <Loader /> : 'Generate Roast ✨'}
           </button>
         </form>
       </div>
 
-      {(isLoading || displayRoast) && (
+      {isLoading && (
+        <div className="mt-10 card">
+          <Loader />
+        </div>
+      )}
+
+      {!isLoading && displayRoast && (
         <div className="mt-10 animate-fade-in">
           <h2 className="text-3xl font-bold text-center mb-4">Your Fresh Roast!</h2>
           <div className="bg-gradient-to-br from-pink-400 via-purple-400 to-yellow-400 p-1 rounded-2xl shadow-2xl aspect-[9/16] max-w-sm mx-auto">
@@ -185,12 +205,23 @@ const RoastMeAI = () => {
         </div>
       )}
 
-      <Timeline roasts={roasts} onDelete={handleDeleteRoast} onPublish={handlePublishClick} />
+      <Timeline
+        roasts={roasts}
+        onDelete={handleDeleteRoast}
+        onPublish={handlePublishClick}
+        onShare={handleShare}
+      />
 
       <PermissionModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmPublish}
+      />
+
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={handleCloseShareModal}
+        roast={roastToShare}
       />
     </div>
   );
