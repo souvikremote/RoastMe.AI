@@ -1,5 +1,5 @@
 import Groq from 'groq-sdk';
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { StreamingTextResponse } from 'ai';
 
 export const runtime = 'edge';
 
@@ -36,7 +36,27 @@ export async function POST(req) {
       top_p: 1,
     });
 
-    const stream = OpenAIStream(response);
+    const stream = new ReadableStream({
+      async start(controller) {
+        const reader = response.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            break;
+          }
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n\n').filter(line => line.startsWith('data: '));
+          for (const line of lines) {
+            const json = JSON.parse(line.substring(6));
+            if (json.choices[0].delta.content) {
+              controller.enqueue(json.choices[0].delta.content);
+            }
+          }
+        }
+        controller.close();
+      },
+    });
 
     return new StreamingTextResponse(stream);
 

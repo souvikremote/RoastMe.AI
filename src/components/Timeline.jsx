@@ -28,8 +28,6 @@ const Timeline = ({ roasts, onDelete, onPublish, onShare }) => {
             <div
               className="flex justify-between items-center cursor-pointer p-4"
               onClick={() => handleToggle(roast.id)}
-              onMouseEnter={() => setExpandedId(roast.id)}
-              onMouseLeave={() => setExpandedId(null)}
             >
               <div className="flex items-center gap-4">
                 {roast.imageUrl && (

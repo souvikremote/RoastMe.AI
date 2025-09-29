@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
       <body className={`${lexend.className} antialiased`}>
         <div className="flex min-h-screen">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <div className="flex flex-col flex-grow">
+          <div className={`flex flex-col flex-grow transition-all duration-300 ease-in-out ${isSidebarOpen ? 'ml-64' : 'ml-20'}`}>
             <Navbar />
             <main className="flex-grow container mx-auto px-4 py-8">
               {children}

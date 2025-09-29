@@ -31,7 +31,7 @@ export default function HomePage() {
           The only place on the internet where you can get a confidence boost by getting hilariously roasted by an AI.
         </p>
         <div className="mt-8">
-          <Link href="/roast" className="btn btn-primary btn-lg">
+          <Link href="/roastme.ai" className="btn btn-primary btn-lg">
             Get Roasted Now!
           </Link>
         </div>
